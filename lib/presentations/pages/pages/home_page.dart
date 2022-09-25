@@ -67,7 +67,7 @@ class HomePage extends StatelessWidget {
                   child: const Padding(
                     padding: EdgeInsets.all(1.0),
                     child: Text(
-                      "99",
+                      "20",
                       style:
                           TextStyle(fontSize: 10, fontWeight: FontWeight.w500),
                       textAlign: TextAlign.center,
