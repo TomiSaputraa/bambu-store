@@ -25,13 +25,13 @@ class ProductModel {
 @JsonSerializable()
 class Product {
   Product({
-    required this.id,
+    this.id,
     required this.name,
     required this.description,
     required this.price,
     required this.imageUrl,
-    required this.createdAt,
-    required this.updatedAt,
+    this.createdAt,
+    this.updatedAt,
   });
 
   final int? id;

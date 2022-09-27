@@ -116,9 +116,10 @@ class HomePage extends StatelessWidget {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (_) => DetailsPage(
-                                      product: state.products[index],
-                                    )),
+                              builder: (_) => DetailsPage(
+                                product: state.products[index],
+                              ),
+                            ),
                           );
                         },
                         child: Container(
@@ -171,7 +172,7 @@ class HomePage extends StatelessWidget {
                               const SizedBox(
                                 height: 6,
                               ),
-                              Container(
+                              SizedBox(
                                 height: 20,
                                 width: MediaQuery.of(context).size.width,
                                 child: Row(

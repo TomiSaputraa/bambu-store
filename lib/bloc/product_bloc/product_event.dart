@@ -10,6 +10,16 @@ class LoadProductEvent extends ProductEvent {
 }
 
 class AddProductEvent extends ProductEvent {
+  final String name;
+  final String description;
+  final String price;
+  final String imageUrl;
+
+  AddProductEvent(
+      {required this.name,
+      required this.description,
+      required this.price,
+      required this.imageUrl});
   @override
   List<Object?> get props => [];
 }

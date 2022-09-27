@@ -17,6 +17,7 @@ class ProductLoadedState extends ProductState {
   final List<dynamic> products;
 
   ProductLoadedState(this.products);
+
   @override
   List<Object?> get props => [products];
 

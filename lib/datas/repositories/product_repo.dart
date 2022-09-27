@@ -44,4 +44,36 @@ class ProductRepository {
       throw Exception("failed to get data product");
     }
   }
+
+  Future<Product> postProduct(
+    String name,
+    String description,
+    String price,
+    String imageUrl,
+  ) async {
+    // Map data = <String, dynamic>{
+    //   'name': product!.name,
+    //   'description': product.description,
+    //   'price': product.price,
+    //   'imageUrl': product.imageUrl,
+    // };
+    var response = await http.post(
+      Uri.parse(_apiurl),
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+        'Charset': 'utf-8',
+      },
+      body: json.encode(<String, dynamic>{
+        'name': name,
+        'description': description,
+        'price': price,
+        'imageUrl': imageUrl,
+      }),
+    );
+    if (response.statusCode == 200) {
+      return Product.fromJson(json.decode(response.body));
+    } else {
+      throw Exception('Failed post product');
+    }
+  }
 }
