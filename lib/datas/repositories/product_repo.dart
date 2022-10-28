@@ -4,7 +4,8 @@ import 'package:test_app/datas/models/product_model.dart';
 import 'package:http/http.dart' as http;
 
 class ProductRepository {
-  final String _apiurl = 'http://10.0.2.2:8000/api/products';
+  // final String _apiurl = 'http://10.0.2.2:8000/api/products';
+  final String _apiurl = 'https://63070990c0d0f2b8012570e6.mockapi.io/product';
 
   Future getData() async {
     final response = await http.get(Uri.parse(_apiurl));
@@ -37,7 +38,7 @@ class ProductRepository {
       // contoh lain
       // String list listData = jsonData['message']; => key dari message yang kita ambil dengan tipe data
       // => sesuai dengan value yang di ambil
-      List<dynamic> listData = jsonData['product'];
+      List<dynamic> listData = jsonData;
       print(listData); // Untuk print data di console
       return listData;
     } else {
@@ -45,35 +46,27 @@ class ProductRepository {
     }
   }
 
-  Future<Product> postProduct(
-    String name,
-    String description,
-    String price,
-    String imageUrl,
-  ) async {
-    // Map data = <String, dynamic>{
-    //   'name': product!.name,
-    //   'description': product.description,
-    //   'price': product.price,
-    //   'imageUrl': product.imageUrl,
-    // };
-    var response = await http.post(
-      Uri.parse(_apiurl),
-      headers: <String, String>{
-        'Content-Type': 'application/json; charset=UTF-8',
-        'Charset': 'utf-8',
-      },
-      body: json.encode(<String, dynamic>{
-        'name': name,
-        'description': description,
-        'price': price,
-        'imageUrl': imageUrl,
-      }),
-    );
-    if (response.statusCode == 200) {
-      return Product.fromJson(json.decode(response.body));
-    } else {
-      throw Exception('Failed post product');
-    }
-  }
+  // Future<Product> postProduct(
+  //   Product? product,
+  // ) async {
+  //   Map data = <String, dynamic>{
+  //     'name': product!.name,
+  //     'description': product.description,
+  //     'price': product.price,
+  //     'imageUrl': product.imageUrl,
+  //   };
+  //   var response = await http.post(
+  //     Uri.parse(_apiurl),
+  //     headers: <String, String>{
+  //       'Content-Type': 'application/json; charset=UTF-8',
+  //       'Charset': 'utf-8',
+  //     },
+  //     body: json.encode(data),
+  //   );
+  //   if (response.statusCode == 200) {
+  //     return Product.fromJson(json.decode(response.body));
+  //   } else {
+  //     throw Exception('Failed post product');
+  //   }
+  // }
 }

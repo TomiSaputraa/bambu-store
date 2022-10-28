@@ -3,8 +3,10 @@ import 'package:test_app/bloc/bloc_imports.dart';
 import 'package:test_app/datas/repositories/product_repo.dart';
 import 'package:test_app/presentations/pages/pages/add_products_page.dart';
 import 'package:test_app/presentations/pages/pages/details_page.dart';
+import 'package:test_app/presentations/pages/pages/keranjang_page.dart';
 import 'package:test_app/presentations/widget_import.dart';
 import 'package:test_app/datas/repositories/product_repo.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -47,8 +49,12 @@ class HomePage extends StatelessWidget {
             children: [
               IconButton(
                 splashRadius: 20,
-                tooltip: 'Your shop bag',
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (_) => KeranjangPage()),
+                  );
+                },
                 icon: const Icon(
                   Icons.shopping_bag_outlined,
                   color: Colors.black,
@@ -85,9 +91,12 @@ class HomePage extends StatelessWidget {
         )..add(LoadProductEvent()),
         child: BlocBuilder<ProductBloc, ProductState>(
           builder: (context, state) {
+            // Produk inisilisasi
             if (state is ProductInitialState) {
               return const LinearProgres();
-            } else if (state is ProductLoadedState) {
+            }
+            // Product Loaded
+            else if (state is ProductLoadedState) {
               return RefreshIndicator(
                 color: Colors.black,
                 triggerMode: RefreshIndicatorTriggerMode.anywhere,
@@ -102,6 +111,8 @@ class HomePage extends StatelessWidget {
                       ? const EdgeInsets.symmetric(horizontal: 22)
                       : const EdgeInsets.all(5.0),
                   child: GridView.builder(
+                    shrinkWrap: true,
+                    scrollDirection: Axis.vertical,
                     gridDelegate:
                         const SliverGridDelegateWithMaxCrossAxisExtent(
                       maxCrossAxisExtent: 200,
@@ -132,8 +143,8 @@ class HomePage extends StatelessWidget {
                                 width: MediaQuery.of(context).size.width,
                                 child: Image(
                                   alignment: Alignment.center,
-                                  fit: BoxFit.fill,
-                                  image: NetworkImage(
+                                  fit: BoxFit.cover,
+                                  image: CachedNetworkImageProvider(
                                     state.products[index]['imageUrl'],
                                   ),
                                 ),
@@ -158,7 +169,7 @@ class HomePage extends StatelessWidget {
                                 padding:
                                     const EdgeInsets.symmetric(horizontal: 5.0),
                                 child: Text(
-                                  state.products[index]['price'],
+                                  'Rp${state.products[index]['price']}',
                                   style: TextStyle(
                                     color: Colors.red[400],
                                     fontSize: 17,
@@ -172,7 +183,8 @@ class HomePage extends StatelessWidget {
                               const SizedBox(
                                 height: 6,
                               ),
-                              SizedBox(
+                              Container(
+                                alignment: Alignment.bottomCenter,
                                 height: 20,
                                 width: MediaQuery.of(context).size.width,
                                 child: Row(
@@ -207,6 +219,26 @@ class HomePage extends StatelessWidget {
             return Container();
           },
         ),
+      ),
+      bottomNavigationBar: BottomNavigationBar(
+        items: const <BottomNavigationBarItem>[
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home_outlined),
+            label: "Home",
+            backgroundColor: Colors.red,
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.favorite_outline_outlined),
+            label: "Favorit",
+            backgroundColor: Colors.amber,
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.settings),
+            label: "Settings",
+            backgroundColor: Colors.amber,
+          ),
+        ],
+        selectedItemColor: Colors.black,
       ),
     );
   }

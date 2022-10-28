@@ -6,12 +6,26 @@ class LinearProgres extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Center(
+    return Center(
       child: SizedBox(
-        width: 100,
-        child: LinearProgressIndicator(
-          color: Colors.black,
-          backgroundColor: Colors.white,
+        width: 200,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: const <Widget>[
+            LinearProgressIndicator(
+              color: Colors.black,
+              backgroundColor: Colors.white,
+            ),
+            SizedBox(
+              height: 10,
+            ),
+            Text(
+              "Memuat data produk...",
+              style: TextStyle(),
+              maxLines: 1,
+              textAlign: TextAlign.center,
+            )
+          ],
         ),
       ),
     );

@@ -1,3 +1,4 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 part of 'product_bloc.dart';
 
 class ProductState extends Equatable {
@@ -28,12 +29,20 @@ class ProductLoadedState extends ProductState {
       'products': products,
     };
   }
+
+  ProductLoadedState copyWith({
+    List<dynamic>? products,
+  }) {
+    return ProductLoadedState(
+      products ?? this.products,
+    );
+  }
 }
 
 class ProductFailedState extends ProductState {
   final String error;
 
-  ProductFailedState(this.error);
+  ProductFailedState(this.error) : super();
 
   @override
   List<Object?> get props => [error];

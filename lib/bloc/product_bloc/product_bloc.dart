@@ -24,20 +24,22 @@ class ProductBloc extends HydratedBloc<ProductEvent, ProductState> {
       }
     });
 
-    on<AddProductEvent>((event, emit) async {
-      emit(ProductInitialState());
-      try {
-        final response = await _repository.postProduct(
-          event.name,
-          event.description,
-          event.price,
-          event.imageUrl,
-        ) as List<dynamic>;
-        emit(ProductLoadedState(response));
-      } catch (e) {
-        emit(ProductFailedState(e.toString()));
-      }
-    });
+    // on<AddProductEvent>((event, emit) async {
+    //   emit(ProductInitialState());
+    //   try {
+    //     final response = await _repository.postProduct(
+    //       Product(
+    //         name: event.name,
+    //         description: event.description,
+    //         price: event.price,
+    //         imageUrl: event.imageUrl,
+    //       ),
+    //     ) as List<dynamic>;
+    //     emit(ProductLoadedState(response));
+    //   } catch (e) {
+    //     emit(ProductFailedState(e.toString()));
+    //   }
+    // });
   }
 
   @override
